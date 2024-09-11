@@ -27,3 +27,5 @@ README.txt
     데이터베이스 접속
     http://localhost/phpmyadmin
     
+
+    chat.openai.com
