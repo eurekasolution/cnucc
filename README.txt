@@ -29,3 +29,6 @@ README.txt
     
 
     chat.openai.com
+
+
+    localhost/02.html
