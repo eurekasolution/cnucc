@@ -34,3 +34,13 @@ README.txt
     localhost/02.html
 
     w3schools.com
+
+
+create table aaa ( 
+    id char(20) unique,
+    name char(20)
+
+);
+
+insert into aaa (id, name) values ('test', '테스트');
+insert into aaa (id, name) values ('kdhong', '홍길동');
