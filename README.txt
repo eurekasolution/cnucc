@@ -191,3 +191,59 @@ table형태로 보여줘.
 테이블의 목록은 idx, name, id, birth를 가져옴.
 
 
+
+
+my_user_table이 다음과 같이 정의되어 있어.
+
+CREATE TABLE my_user_table (
+    idx INT AUTO_INCREMENT PRIMARY KEY,   -- 기본 키이자 자동 증가 필드
+    id VARCHAR(50) NOT NULL UNIQUE,       -- 사용자 아이디, 유일한 값
+    name VARCHAR(100) NOT NULL,           -- 사용자 이름
+    pass VARCHAR(255) NOT NULL,           -- 사용자 비밀번호
+    birth DATE                            -- 생년월일 정보
+);
+
+이와 같은 데이터베이스 테이블에 삽입 기능을 홈페이지와 연동하기 위한
+코드가 13.php에서 include "dbtest.php"가 다음과 같이 만들어져 있다.
+
+<div class="container mt-5">
+    <h2>db정보 with ChatGPT</h2>
+
+    <!-- 데이터 테이블 -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>idx</th>
+                <th>name</th>
+                <th>id</th>
+                <th>birth</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // my_user_table에서 데이터를 이름 오름차순으로 가져오는 쿼리
+            $sql = "SELECT idx, name, id, birth FROM my_user_table ORDER BY name ASC";
+            $result = mysqli_query($conn, $sql);
+
+            // 결과가 있는지 확인
+            if (mysqli_num_rows($result) > 0) {
+                // 각 행을 출력
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['idx'] . "</td>";
+                    echo "<td>" . $row['name'] . "</td>";
+                    echo "<td>" . $row['id'] . "</td>";
+                    echo "<td>" . $row['birth'] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                // 결과가 없을 때
+                echo "<tr><td colspan='4'>데이터가 없습니다.</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+
+테이블 위에 id, name, birth, pass를 입력받아 데이터베이스에 추가하는
+FORM을 만들고 기능을 완성해 줘.

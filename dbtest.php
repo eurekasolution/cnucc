@@ -1,6 +1,55 @@
 <div class="container mt-5">
     <h2>db정보 with ChatGPT</h2>
 
+    <div class="container mt-5">
+    <h2>사용자 정보 추가</h2>
+    
+    <!-- 사용자 정보 입력 폼 -->
+    <form action="13.php" method="POST">
+        <div class="mb-3">
+            <label for="id" class="form-label">아이디 (id)</label>
+            <input type="text" class="form-control" id="id" name="id" required>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">이름 (name)</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="birth" class="form-label">생년월일 (birth)</label>
+            <input type="date" class="form-control" id="birth" name="birth" required>
+        </div>
+        <div class="mb-3">
+            <label for="pass" class="form-label">비밀번호 (pass)</label>
+            <input type="password" class="form-control" id="pass" name="pass" required>
+        </div>
+        <button type="submit" class="btn btn-primary">추가</button>
+    </form>
+
+    <?php
+    // POST 요청이 있는 경우에만 실행
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // 입력받은 데이터 가져오기
+        $id = mysqli_real_escape_string($conn, $_POST['id']);
+        $name = mysqli_real_escape_string($conn, $_POST['name']);
+        $birth = mysqli_real_escape_string($conn, $_POST['birth']);
+        $pass = mysqli_real_escape_string($conn, $_POST['pass']);
+        
+        // 비밀번호는 해싱하여 저장하는 것이 권장됨 (예: password_hash)
+        $hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
+        
+        // 데이터베이스에 삽입하는 쿼리
+        $sql_insert = "INSERT INTO my_user_table (id, name, pass, birth) VALUES ('$id', '$name', '$hashed_pass', '$birth')";
+        
+        // 삽입 실행
+        if (mysqli_query($conn, $sql_insert)) {
+            echo "<div class='alert alert-success mt-3'>새 사용자 정보가 추가되었습니다.</div>";
+        } else {
+            echo "<div class='alert alert-danger mt-3'>오류 발생: " . mysqli_error($conn) . "</div>";
+        }
+    }
+    ?>
+
+
     <!-- 데이터 테이블 -->
     <table class="table table-bordered">
         <thead>
