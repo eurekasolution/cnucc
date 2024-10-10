@@ -150,3 +150,44 @@ $data =mysqli_fetch_array(); 형태로 코드를 생성해 줘.
 <?php 
     include "tail.php";
 ?>
+
+
+w3schools.com
+
+my_user_table이 다음과 같이 정의되어 있어.
+
+CREATE TABLE my_user_table (
+    idx INT AUTO_INCREMENT PRIMARY KEY,   -- 기본 키이자 자동 증가 필드
+    id VARCHAR(50) NOT NULL UNIQUE,       -- 사용자 아이디, 유일한 값
+    name VARCHAR(100) NOT NULL,           -- 사용자 이름
+    pass VARCHAR(255) NOT NULL,           -- 사용자 비밀번호
+    birth DATE                            -- 생년월일 정보
+);
+
+
+이때 13.php는 DB연결등을 다음과 같이 성공한 상태를 확인했어.
+
+<?php
+    include "head.php";
+    include "db.php";
+
+    // 데이터베이스 연결 확인
+    $conn = connectDB();
+
+    include "menu.php";
+
+    include "dbtest.php";
+
+    // 연결 종료
+    mysqli_close($conn);
+    include "tail.php";
+?>
+
+dbtest.php를 다음 조건에 맞게 제시해 줘.
+
+제목: db정보 with ChatGPT
+목록은 my_user_table에서 이름의 오름차순으로 모든 데이터를 가져와
+table형태로 보여줘.
+테이블의 목록은 idx, name, id, birth를 가져옴.
+
+
