@@ -3,6 +3,24 @@
 
     <div class="container mt-5">
     <h2>사용자 정보 추가</h2>
+
+    <input type="text" class="form-control" name="test1" placeholder="아이디 입력">
+    <input type="email" class="form-control" name="test1">
+    <input type="url" class="form-control" name="test1">
+    <input type="password" class="form-control" name="test1">
+
+    <select class="form-control" name="test1">
+        <option value='0'>== 선택 ==</option>
+        <option value='1'>서울</option>
+        <option value='2' selected>대전</option>
+    </select>
+
+    <textarea class="form-control" name="test1" rows="10"></textarea>
+
+    <input type="radio" name="gender" value="1">남 
+    <input type="radio" name="gender" value="2" checked>여 
+    <input type="radio" name="gender" value="3">N/A 
+
     
     <!-- 사용자 정보 입력 폼 -->
     <form action="13.php" method="POST">
