@@ -21,26 +21,61 @@
     <input type="radio" name="gender" value="2" checked>여 
     <input type="radio" name="gender" value="3">N/A 
 
+    <script>
+        function confirmDelete()
+        {
+            if(confirm('삭제한 데이터는 복구할 수 없습니다.\n\n정말 삭제하시겠습니까?'))
+            {
+                alert('삭제를 시작합니다.');
+                location.href='index.php?cmd=dbtest&mode=delete';
+            }else
+            {
+                alert('취소되었습니다.');
+            }
+        }
+
+        function checkError() {
+            var id = document.getElementById('id').value.trim();
+            var name = document.getElementById('name').value.trim();
+
+            if (id === "") {
+                alert("아이디를 입력하세요");
+                document.getElementById('id').focus();
+                return false; // 폼 전송 중단
+            }
+
+            if (name === "") {
+                alert("이름을 입력하세요");
+                document.getElementById('name').focus();
+                return false; // 폼 전송 중단
+            }
+
+            return true; // 폼 전송
+        }
+    </script>
     
     <!-- 사용자 정보 입력 폼 -->
-    <form action="13.php" method="POST">
+    <form action="13.php" method="POST" onSubmit="return checkError()"> 
         <div class="mb-3">
             <label for="id" class="form-label">아이디 (id)</label>
-            <input type="text" class="form-control" id="id" name="id" required>
+            <input type="text" class="form-control" id="id" name="id">
         </div>
         <div class="mb-3">
             <label for="name" class="form-label">이름 (name)</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="name" name="name" >
         </div>
         <div class="mb-3">
             <label for="birth" class="form-label">생년월일 (birth)</label>
-            <input type="date" class="form-control" id="birth" name="birth" required>
+            <input type="date" class="form-control" id="birth" name="birth" >
         </div>
         <div class="mb-3">
             <label for="pass" class="form-label">비밀번호 (pass)</label>
-            <input type="password" class="form-control" id="pass" name="pass" required>
+            <input type="password" class="form-control" id="pass" name="pass" >
         </div>
         <button type="submit" class="btn btn-primary">추가</button>
+
+        <button type="button" class="btn btn-success" onClick="alert('안녕하세요. \n충남대학교 한문학과입니다.')">인사하기</button>
+        <button type="button" class="btn btn-danger" onClick="confirmDelete()">삭제하기</button>
     </form>
 
     <?php
