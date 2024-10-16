@@ -11,8 +11,8 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Dropdown1</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">충남대학교 한문학과</a></li>
-            <li><a class="dropdown-item" href="#">Another link</a></li>
+            <li><a class="dropdown-item" href="index.php?cmd=sino">충남대학교 한문학과</a></li>
+            <li><a class="dropdown-item" href="index.php?cmd=korean">국어</a></li>
             <li><a class="dropdown-item" href="#">A third link</a></li>
           </ul>
         </li>
@@ -30,3 +30,5 @@
     </div>
   </div>
 </nav>
+
+<div class="container content">

@@ -7,6 +7,8 @@
 
     include "menu.php";
 
+
+    
     // $cmd 변수를 가져오기 (URL에서 ?cmd= 값을 확인)
     $cmd = isset($_GET["cmd"]) ? $_GET["cmd"] : '';
 
