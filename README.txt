@@ -247,3 +247,11 @@ CREATE TABLE my_user_table (
 
 테이블 위에 id, name, birth, pass를 입력받아 데이터베이스에 추가하는
 FORM을 만들고 기능을 완성해 줘.
+
+create table users (
+        idx integer AUTO_INCREMENT primary key,
+        name    char(20),
+        id      char(20) unique,
+        pass    char(50),
+        level   integer default '1'
+);
