@@ -255,3 +255,9 @@ create table users (
         pass    char(50),
         level   integer default '1'
 );
+
+insert into users (name, id, pass, level)
+    value('테스트', 'test', '1111', '1');
+insert into users (name, id, pass, level)
+    value('관리자', 'admin', '1111', '9');
+
