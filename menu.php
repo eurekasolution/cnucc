@@ -25,6 +25,17 @@
           </ul>
         </li>
 
+        <?php
+          if(isset($_SESSION['sino_id']) and $_SESSION['sino_id'])
+          {
+            // 로그인 한 사람만 보이는 영역
+
+            if(isset($_SESSION['sino_level']) and $_SESSION['sino_level'] == 9)
+            {
+              // 관리자 메뉴
+            }
+          }
+        ?>
 
       </ul>
     </div>
@@ -32,3 +43,39 @@
 </nav>
 
 <div class="container content">
+
+<?php
+  if(isset($_SESSION["sino_id"]) and $_SESSION["sino_id"])
+  {
+    // 로그인
+    echo "
+    <div class='row'>
+      <div class='col text-end'>
+        <b>$_SESSION[sino_name]</b>님 사용중 
+        <button type='button' class='btn btn-primary' onClick=\"location.href='$_SERVER[PHP_SELF]?cmd=logout'\">로그아웃</button>
+      </div>
+    </div>
+    ";
+  }else
+  {
+    // 로그인 X
+    echo "
+    <form method='post' action='$_SERVER[PHP_SELF]?cmd=login'>
+      <div class='row'>
+        <div class='col colLine'>아이디</div>
+        <div class='col colLine'>
+          <input type='text' name ='id' class='form-control' placeholder='아이디를 입력하세요'>
+        </div>
+        <div class='col colLine'>PW</div>
+        <div class='col colLine'>
+          <input type='password' name ='pass' class='form-control' placeholder='비번을 입력하세요'>
+        </div>
+        <div class='col colLine'>
+          <button type='submit' class='btn btn-primary form-control'>로그인</button>
+        </div>
+      </div>
+    </form>
+    ";
+
+  }
+?>

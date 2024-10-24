@@ -1,4 +1,7 @@
 <?php
+    session_save_path("sess");
+    session_start();
+
     include "head.php";
     include "db.php";
 
