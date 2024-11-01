@@ -261,3 +261,106 @@ insert into users (name, id, pass, level)
 insert into users (name, id, pass, level)
     value('관리자', 'admin', '1111', '9');
 
+
+2024-11-01
+
+게시판을 위한 테이블을 다음과 같이 만들어 줘.
+테이블 명 : board
+필요한 필드
+  1. idx : 정수, 자동 증가, 게시판 글의 키 값
+  2. bid : board를 구분하는 아이디. 예: 1 공지사항 2 자유게시판
+  3. id : 사용자 아이디
+  4. name : 작성자 이름 저장
+  5. title : 게시판 제목
+  6. notice : 1 공지사항, 0 공지사항 아님
+  7. html : 게시글의 내용 저장, mediumtext
+  8. time : datetime, 게시글 작성 시간
+
+
+CREATE TABLE board (
+    idx INT AUTO_INCREMENT PRIMARY KEY,          -- 게시글의 고유 키
+    bid INT NOT NULL,                            -- 게시판 구분 아이디 (1: 공지사항, 2: 자유게시판 등)
+    id VARCHAR(50) NOT NULL,                     -- 사용자 아이디
+    name VARCHAR(100) NOT NULL,                  -- 작성자 이름
+    title VARCHAR(255) NOT NULL,                 -- 게시판 제목
+    notice TINYINT(1) DEFAULT 0,                 -- 공지사항 여부 (1: 공지사항, 0: 공지사항 아님)
+    html MEDIUMTEXT,                             -- 게시글 내용 (MediumText)
+    time DATETIME DEFAULT CURRENT_TIMESTAMP      -- 작성 시간 (현재 시간 자동 입력)
+);
+
+
+
+모든 링크가 index.php를 거쳐 cmd값을 보고 동작을 결정하도록
+다음과 같이 구성되어 있어.
+메뉴에서 공지사항(bid=1), 자유게시판(bid=2)는 다음과 같이 링크가 연결돼.
+<a href="<?php echo $_SERVER['PHP_SELF']?>?cmd=board&bid=1">공지사항</a>
+
+이때 index.php는 다음과 같이 되어 있어서 board.php를 만들고 싶어.
+
+<?php
+    session_save_path("sess");
+    session_start();
+
+    include "head.php";
+    include "db.php";
+
+    // 데이터베이스 연결 확인
+    $conn = connectDB();
+
+    include "menu.php";
+    
+    // $cmd 변수를 가져오기 (URL에서 ?cmd= 값을 확인)
+    $cmd = isset($_GET["cmd"]) ? $_GET["cmd"] : '';
+
+    if (empty($cmd)) {
+        include "init.php";
+    } else {
+        $cmd_file = $cmd . ".php";
+        if (file_exists($cmd_file)) {
+            include $cmd_file;
+        } else {
+            echo "<div class='container'><p>파일을 찾을 수 없습니다: $cmd_file</p></div>";
+        }
+    }
+    // 연결 종료
+    mysqli_close($conn);
+    include "tail.php";
+?>
+
+게시판의 동작 정의는 다음과 같아.
+게시판의 각 기능은 $mode로 결정해.
+$mode = $_GET['mode'];
+1. 만약 $mode값이 없으면 기본 기능은 목록보기야($mode = "list").
+2. mode에는 list(글 목록 보기), write(글쓰기), db_write(글쓰기 실행)
+   show(글 내용보기), delete(글 삭제 실행)가 있어.
+3. 글 목록 보기
+  목록보기는 bid로 게시판을 구분해
+  notice의 내림차순, idx의 내림차순으로 10개씩 보여줘.
+  전체 페이지를 계산해 게시판 목록 밑에 페이지별로 이동하도록 
+  bootstrap5의 pagination으로 페이지 표시
+  제목을 클릭했을 때 글 내용보기(mode=show)
+  화면 하단에 글쓰기 버튼이 있어서 버튼을 클릭하면 cmd=board&bid=$bid&mode=write로 이동하게 돼.
+4. 글 내용 보기
+    mode = "show"
+    제목, 작성자, 내용보기를 보여주고
+    화면 하단에 목록으로 가기, 삭제 버튼이 있어.
+    삭제 버튼은 글쓴 사람이나, 관리자에게만 보여줘.
+    세션정보로 sino_id, sino_level로 구분하는데
+    $_SESSION["sino_id"]로 글쓴 사람인지 구분해
+    관리자는 $_SESSION["sino_leve"]=9 이면 관리자야.
+
+5. 글쓰기
+    mode = "write"인데, 로그인 된 사람만 글을 쓸 수 있도록 해줘.
+    단, 공지사항인 bid=1 게시판은 관리자만 글쓰기 가능해.
+    글쓰기실행 버튼과 목록으로 가기 버튼이 있어.
+    글쓰기실행 버튼을 클릭하면 mode=db_write에서 저장하고,
+    alert('게시글이 작성되었습니다.')라고 보여주고 목록으로 가.
+    목록으로 갈때나 게시판 마다 항상 bid가 따라 다녀야 해.
+6. 글 삭제
+    삭제는 글 쓴 사람이나 관리자만 수행하는데,
+    confirm()으로 정말 삭제하겠는지 묻고 실행해줘.
+    실행을 수행하면 mode=delete에서 처리하고
+    alert('게시글이 삭제되었습니다.') 라고 보여주고 목록으로 가면돼.
+
+모든 코드는 Bootstrap5로 구성되기 때문에 
+table table-bordered 클래스를 이용해 테이블 형태로 보여줘.
