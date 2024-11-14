@@ -364,3 +364,15 @@ $mode = $_GET['mode'];
 
 모든 코드는 Bootstrap5로 구성되기 때문에 
 table table-bordered 클래스를 이용해 테이블 형태로 보여줘.
+
+
+1. menu.php에 ajax메뉴를 추가 (cmd=ajax)
+
+2. ajax.php 생성
+
+3. head.php에 jquery를 추가하는
+4. ajax.php
+
+내용채우고
+
+5. ajaxServer.php 만들어서 수신하는 녀석을 만듬

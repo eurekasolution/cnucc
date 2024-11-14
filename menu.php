@@ -15,6 +15,10 @@
             <li><a class="dropdown-item" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=korean">국어</a></li>
             <li><a class="dropdown-item" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=board&bid=1">공지사항</a></li>
             <li><a class="dropdown-item" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=board&bid=2">자유게시판</a></li>
+          
+            <li><a class="dropdown-item" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=ajax">AJAX</a></li>
+          
+          
           </ul>
         </li>
         <li class="nav-item dropdown">
