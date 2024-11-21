@@ -376,3 +376,8 @@ table table-bordered 클래스를 이용해 테이블 형태로 보여줘.
 내용채우고
 
 5. ajaxServer.php 만들어서 수신하는 녀석을 만듬
+
+
+a:link { /* font-family: Consolas; font-size:18px; */font-size:14px; text-decoration:none;  color:#000000; }
+a:hover { /* font-family: Consolas; font-size:18px; */font-size:14px;  text-decoration:none;  color:#0000FF; }
+a:visited { /* font-family: Consolas; font-size:18px; */font-size:14px;  text-decoration:none;  color:#000000; }
