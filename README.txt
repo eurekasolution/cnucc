@@ -381,3 +381,23 @@ table table-bordered 클래스를 이용해 테이블 형태로 보여줘.
 a:link { /* font-family: Consolas; font-size:18px; */font-size:14px; text-decoration:none;  color:#000000; }
 a:hover { /* font-family: Consolas; font-size:18px; */font-size:14px;  text-decoration:none;  color:#0000FF; }
 a:visited { /* font-family: Consolas; font-size:18px; */font-size:14px;  text-decoration:none;  color:#000000; }
+
+
+DB 백업 
+
+1. DB 단위로 받는다.
+2. mysqldump
+
+    mysqldump -u 사용자이름  디비이름 -p > 파일이름
+
+    mysqldump -u culture culture -p > 2024-11-22.db.sql
+
+    xampp-control
+
+3. 복구할 때
+
+    mysql -u culture culture -p
+
+    ?
+
+    source 2024-11-22.db.sql
